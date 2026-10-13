@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vellan Gloss | فروشگاه لوازم آرایشی</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial;background:#fff8fb;color:#35252d}
+header{background:#9d426c;color:white;text-align:center;padding:25px 12px}
+header h1{margin:0;font-size:28px}
+header p{margin-bottom:0}
+.search{padding:15px;text-align:center}
+input,select{padding:12px;border:1px solid #e3c5d4;border-radius:10px;font-size:15px;margin:5px;max-width:95%}
+#search{width:90%;max-width:500px}
+h2{text-align:center;color:#9d426c}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:12px;max-width:1100px;margin:auto}
+.card{background:white;border-radius:14px;padding:10px;text-align:center;box-shadow:0 2px 9px #eadce3}
+.card img{width:100%;height:145px;object-fit:cover;border-radius:10px;background:#f5e7ee}
+.card h3{font-size:14px;min-height:35px}
+.price{color:#a02e62;font-weight:bold}
+button{background:#9d426c;color:white;border:0;padding:10px 12px;border-radius:9px;cursor:pointer}
+#cart{background:white;margin:18px;padding:16px;border-radius:12px}
+footer{text-align:center;padding:20px;background:#f1dce7;margin-top:25px}
+@media(min-width:700px){.products{grid-template-columns:repeat(4,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header>
+<h1>VELLAN GLOSS 💄</h1>
+<p>زیبایی و درخشش، در انتخاب تو</p>
+</header>
+
+<div class="search">
+<input id="search" placeholder="نام محصول را جست‌وجو کن..." oninput="showProducts()">
+<br>
+<select id="category" onchange="showProducts()">
+<option value="">همه محصولات</option>
+<option>آرایش صورت</option>
+<option>آرایش چشم</option>
+<option>آرایش لب</option>
+<option>مراقبت پوست</option>
+<option>مراقبت مو</option>
+<option>عطر و ادکلن</option>
+</select>
+</div>
+
+<h2>محصولات فروشگاه</h2>
+<div class="products" id="products"></div>
+
+<div id="cart">
+<h2>🛒 سبد خرید</h2>
+<div id="cartItems">هنوز محصولی اضافه نکرده‌ای.</div>
+<p>مجموع: <strong id="total">۰</strong> تومان</p>
+<button onclick="sendOrder()">ثبت سفارش در واتساپ</button>
+</div>
+
+<footer>VELLAN GLOSS | فروشگاه آنلاین لوازم آرایشی</footer>
+
+<script>
+const items=[
+{name:"رژ لب",price:180000,category:"آرایش لب",image:"https://placehold.co/300x220/f5dce8/63334b?text=Lipstick"},
+{name:"ریمل",price:220000,category:"آرایش چشم",image:"https://placehold.co/300x220/f5dce8/63334b?text=Mascara"},
+{name:"کرم پودر",price:350000,category:"آرایش صورت",image:"https://placehold.co/300x220/f5dce8/63334b?text=Foundation"},
+{name:"ضد آفتاب",price:290000,category:"مراقبت پوست",image:"https://placehold.co/300x220/f5dce8/63334b?text=Sunscreen"},
+{name:"شامپو",price:160000,category:"مراقبت مو",image:"https://placehold.co/300x220/f5dce8/63334b?text=Shampoo"},
+{name:"عطر",price:450000,category:"عطر و ادکلن",image:"https://placehold.co/300x220/f5dce8/63334b?text=Perfume"},
+{name:"پنکک",price:240000,category:"آرایش صورت",image:"https://placehold.co/300x220/f5dce8/63334b?text=Powder"},
+{name:"خط چشم",price:150000,category:"آرایش چشم",image:"https://placehold.co/300x220/f5dce8/63334b?text=Eyeliner"}
+];
+let cart=[];
+function money(n){return n.toLocaleString("fa-IR")}
+function showProducts(){
+const q=document.getElementById("search").value.trim().toLowerCase();
+const c=document.getElementById("category").value;
+const filtered=items.filter(p=>p.name.toLowerCase().includes(q)&&(!c||p.category===c));
+document.getElementById("products").innerHTML=filtered.map((p,i)=>`
+<div class="card">
+<img src="${p.image}" alt="${p.name}">
+<h3>${p.name}</h3>
+<p class="price">${money(p.price)} تومان</p>
+<button onclick="addCart('${p.name}')">افزودن به سبد</button>
+</div>`).join("")||"<p>محصولی پیدا نشد.</p>";
+}
+function addCart(name){const p=items.find(x=>x.name===name);cart.push(p);showCart()}
+function showCart(){
+document.getElementById("cartItems").innerHTML=cart.length?cart.map((p,i)=>`${p.name} — ${money(p.price)} تومان <button onclick="removeCart(${i})">حذف</button>`).join("<br><br>"):"هنوز محصولی اضافه نکرده‌ای.";
+document.getElementById("total").textContent=money(cart.reduce((s,p)=>s+p.price,0));
+}
+function removeCart(i){cart.splice(i,1);showCart()}
+function sendOrder(){
+if(!cart.length){alert("اول محصولی به سبد خرید اضافه کن.");return}
+const details=cart.map(p=>p.name+" - "+money(p.price)+" تومان").join("%0A");
+const total=money(cart.reduce((s,p)=>s+p.price,0));
+const phone=prompt("شماره واتساپ فروشگاه را با کد کشور وارد کن؛ برای ایران با 98 شروع کن:");
+if(!phone)return;
+window.open("https://wa.me/"+phone.replace(/\D/g,"")+"?text="+encodeURIComponent("سلام، سفارش من:%0A"+decodeURIComponent(details)+"%0Aمجموع: "+total+" تومان"),"_blank");
+}
+showProducts();
+</script>
+</body>
+</html>
