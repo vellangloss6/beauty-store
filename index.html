@@ -83,9 +83,11 @@ document.getElementById("products").innerHTML=filtered.map((p,i)=>`
 </div>`).join("")||"<p>محصولی پیدا نشد.</p>";
 }
 function addCart(name){
-alert("دکمه کار می‌کند");
-const p=items.find(x=>x.name===name);
+const p = items.find(x => x.name === name);
+if (!p) return;
 cart.push(p);
+showCart();
+}
 function showCart(){
 document.getElementById("cartItems").innerHTML=cart.length?cart.map((p,i)=>`${p.name} — ${money(p.price)} تومان <button onclick="removeCart(${i})">حذف</button>`).join("<br><br>"):"هنوز محصولی اضافه نکرده‌ای.";
 document.getElementById("total").textContent=money(cart.reduce((s,p)=>s+p.price,0));
@@ -100,7 +102,12 @@ if(!phone)return;
 window.open("https://wa.me/"+phone.replace(/\D/g,"")+"?text="+encodeURIComponent("سلام، سفارش من:%0A"+decodeURIComponent(details)+"%0Aمجموع: "+total+" تومان"),"_blank");
 }
 showProducts();
-</script>const SUPABASE_URL="https://rzurqyvjsbmnfsourdfb.supabase.co";
-const SUPABASE_KEY="sb_publishable_OsQ9tCkLOOfA0dTrZc3CKg_52AxDtKr";<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
+const SUPABASE_URL = "https://rzurqyvjsbmnfsourdfb.supabase.co";
+const SUPABASE_KEY = "sb_publishable_OsQ9tCkLOOfA0dTrZc3CKg_52AxDtKr";
+</script></body>
+</html>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </body>
 </html>
