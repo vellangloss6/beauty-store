@@ -83,6 +83,7 @@ document.getElementById("products").innerHTML=filtered.map((p,i)=>`
 </div>`).join("")||"<p>محصولی پیدا نشد.</p>";
 }
 function addCart(name){const p=items.find(x=>x.name===name);cart.push(p);showCart()}
+alert("دکمه کار می‌کند");
 function showCart(){
 document.getElementById("cartItems").innerHTML=cart.length?cart.map((p,i)=>`${p.name} — ${money(p.price)} تومان <button onclick="removeCart(${i})">حذف</button>`).join("<br><br>"):"هنوز محصولی اضافه نکرده‌ای.";
 document.getElementById("total").textContent=money(cart.reduce((s,p)=>s+p.price,0));
