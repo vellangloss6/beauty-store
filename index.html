@@ -82,18 +82,44 @@ document.getElementById("products").innerHTML=filtered.map((p,i)=>`
 <button onclick="addCart('${p.name}')">افزودن به سبد</button>
 </div>`).join("")||"<p>محصولی پیدا نشد.</p>";
 }
-function addCart(name){
-alert("دکمه کار می‌کند");
-const p = items.find(x => x.name === name);
-if (!p) return;
-cart.push(p);
-showCart();
+function addCart(name) {
+  const p = items.find(x => x.name === name);
+
+  if (!p) {
+    alert("این محصول پیدا نشد!");
+    return;
+  }
+
+  cart.push(p);
+  showCart();
+  alert("محصول به سبد خرید اضافه شد ❤️");
 }
-function showCart(){
-document.getElementById("cartItems").innerHTML=cart.length?cart.map((p,i)=>`${p.name} — ${money(p.price)} تومان <button onclick="removeCart(${i})">حذف</button>`).join("<br><br>"):"هنوز محصولی اضافه نکرده‌ای.";
-document.getElementById("total").textContent=money(cart.reduce((s,p)=>s+p.price,0));
+
+function showCart() {
+  const cartItems = document.getElementById("cartItems");
+  const total = document.getElementById("total");
+
+  if (!cartItems || !total) {
+    alert("بخش سبد خرید در صفحه پیدا نشد!");
+    return;
+  }
+
+  cartItems.innerHTML = cart.length
+    ? cart.map((p, i) => `
+        ${p.name} — ${money(p.price)} تومان
+        <button onclick="removeCart(${i})">حذف</button>
+      `).join("<br><br>")
+    : "هنوز محصولی اضافه نکرده‌ای.";
+
+  total.textContent = money(
+    cart.reduce((sum, p) => sum + Number(p.price || 0), 0)
+  );
 }
-function removeCart(i){cart.splice(i,1);showCart()}
+
+function removeCart(i) {
+  cart.splice(i, 1);
+  showCart();
+}
 function sendOrder(){
 if(!cart.length){alert("اول محصولی به سبد خرید اضافه کن.");return}
 const details=cart.map(p=>p.name+" - "+money(p.price)+" تومان").join("%0A");
