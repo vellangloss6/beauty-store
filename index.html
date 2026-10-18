@@ -83,6 +83,7 @@ document.getElementById("products").innerHTML=filtered.map((p,i)=>`
 </div>`).join("")||"<p>محصولی پیدا نشد.</p>";
 }
 function addCart(name){
+alert("دکمه کار می‌کند");
 const p = items.find(x => x.name === name);
 if (!p) return;
 cart.push(p);
