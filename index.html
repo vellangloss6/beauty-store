@@ -1,134 +1,574 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vellan Gloss | فروشگاه لوازم آرایشی</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Tahoma,Arial;background:#fff8fb;color:#35252d}
-header{background:#9d426c;color:white;text-align:center;padding:25px 12px}
-header h1{margin:0;font-size:28px}
-header p{margin-bottom:0}
-.search{padding:15px;text-align:center}
-input,select{padding:12px;border:1px solid #e3c5d4;border-radius:10px;font-size:15px;margin:5px;max-width:95%}
-#search{width:90%;max-width:500px}
-h2{text-align:center;color:#9d426c}
-.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:12px;max-width:1100px;margin:auto}
-.card{background:white;border-radius:14px;padding:10px;text-align:center;box-shadow:0 2px 9px #eadce3}
-.card img{width:100%;height:145px;object-fit:cover;border-radius:10px;background:#f5e7ee}
-.card h3{font-size:14px;min-height:35px}
-.price{color:#a02e62;font-weight:bold}
-button{background:#9d426c;color:white;border:0;padding:10px 12px;border-radius:9px;cursor:pointer}
-#cart{background:white;margin:18px;padding:16px;border-radius:12px}
-footer{text-align:center;padding:20px;background:#f1dce7;margin-top:25px}
-@media(min-width:700px){.products{grid-template-columns:repeat(4,minmax(0,1fr))}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>VELLAN GLOSS | فروشگاه زیبایی</title>
+
+  <meta name="description"
+        content="فروشگاه آنلاین لوازم آرایشی و بهداشتی Vellan Gloss">
+
+  <style>
+    :root {
+      --primary: #9d426c;
+      --primary-dark: #78304f;
+      --background: #fff8fb;
+      --text: #35252d;
+      --border: #efdce5;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 26px 15px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+    }
+
+    .container {
+      width: min(1100px, 100%);
+      margin: auto;
+      padding: 18px 14px;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: white;
+      outline-color: var(--primary);
+    }
+
+    h2 {
+      color: var(--primary);
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      min-width: 0;
+      padding: 10px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 3px 12px #78304f0b;
+    }
+
+    .card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 10px;
+      background: #f5e7ee;
+    }
+
+    .card h3 {
+      font-size: 14px;
+      margin: 10px 0 4px;
+    }
+
+    .price {
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      border: none;
+      border-radius: 9px;
+      padding: 10px;
+      background: var(--primary);
+      color: white;
+      margin-top: 8px;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .cart {
+      margin-top: 30px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .cart h2 {
+      margin-top: 0;
+    }
+
+    .cart-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-row button {
+      flex-shrink: 0;
+      border: none;
+      border-radius: 7px;
+      padding: 6px 10px;
+      color: white;
+      background: #b33d58;
+    }
+
+    .total {
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--primary);
+      margin: 18px 0;
+    }
+
+    .empty {
+      text-align: center;
+      color: #887580;
+      padding: 12px 0;
+    }
+
+    .notice {
+      color: #75636c;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 22px 12px;
+      text-align: center;
+      background: #f1dce7;
+      font-size: 13px;
+    }
+
+    @media (min-width: 600px) {
+      .toolbar {
+        grid-template-columns: 2fr 1fr;
+      }
+
+      .products {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .card {
+        padding: 12px;
+      }
+
+      .card h3 {
+        font-size: 16px;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .products {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  </style>
 </head>
+
 <body>
-<header>
-<h1>VELLAN GLOSS 💄</h1>
-<p>زیبایی و درخشش، در انتخاب تو</p>
-</header>
 
-<div class="search">
-<input id="search" placeholder="نام محصول را جست‌وجو کن..." oninput="showProducts()">
-<br>
-<select id="category" onchange="showProducts()">
-<option value="">همه محصولات</option>
-<option>آرایش صورت</option>
-<option>آرایش چشم</option>
-<option>آرایش لب</option>
-<option>مراقبت پوست</option>
-<option>مراقبت مو</option>
-<option>عطر و ادکلن</option>
-</select>
-</div>
+  <header>
+    <h1>VELLAN GLOSS 💄</h1>
+    <p>زیبایی و درخشش، در انتخاب تو</p>
+  </header>
 
-<h2>محصولات فروشگاه</h2>
-<div class="products" id="products"></div>
+  <main class="container">
 
-<div id="cart">
-<h2>🛒 سبد خرید</h2>
-<div id="cartItems">هنوز محصولی اضافه نکرده‌ای.</div>
-<p>مجموع: <strong id="total">۰</strong> تومان</p>
-<button onclick="sendOrder()">ثبت سفارش در واتساپ</button>
-</div>
+    <h2>محصولات فروشگاه</h2>
 
-<footer>VELLAN GLOSS | فروشگاه آنلاین لوازم آرایشی</footer>
+    <section class="toolbar" aria-label="جست‌وجوی محصولات">
+      <input
+        id="search"
+        type="search"
+        placeholder="نام محصول را جست‌وجو کن..."
+        aria-label="جست‌وجوی محصول"
+      >
 
-<script>
-const items=[
-{name:"رژ لب",price:180000,category:"آرایش لب",image:"https://placehold.co/300x220/f5dce8/63334b?text=Lipstick"},
-{name:"ریمل",price:220000,category:"آرایش چشم",image:"https://placehold.co/300x220/f5dce8/63334b?text=Mascara"},
-{name:"کرم پودر",price:350000,category:"آرایش صورت",image:"https://placehold.co/300x220/f5dce8/63334b?text=Foundation"},
-{name:"ضد آفتاب",price:290000,category:"مراقبت پوست",image:"https://placehold.co/300x220/f5dce8/63334b?text=Sunscreen"},
-{name:"شامپو",price:160000,category:"مراقبت مو",image:"https://placehold.co/300x220/f5dce8/63334b?text=Shampoo"},
-{name:"عطر",price:450000,category:"عطر و ادکلن",image:"https://placehold.co/300x220/f5dce8/63334b?text=Perfume"},
-{name:"پنکک",price:240000,category:"آرایش صورت",image:"https://placehold.co/300x220/f5dce8/63334b?text=Powder"},
-{name:"خط چشم",price:150000,category:"آرایش چشم",image:"https://placehold.co/300x220/f5dce8/63334b?text=Eyeliner"}
-];
-let cart=[];
-function money(n){return n.toLocaleString("fa-IR")}
-function showProducts(){
-const q=document.getElementById("search").value.trim().toLowerCase();
-const c=document.getElementById("category").value;
-const filtered=items.filter(p=>p.name.toLowerCase().includes(q)&&(!c||p.category===c));
-document.getElementById("products").innerHTML=filtered.map((p,i)=>`
-<div class="card">
-<img src="${p.image}" alt="${p.name}">
-<h3>${p.name}</h3>
-<p class="price">${money(p.price)} تومان</p>
-<button onclick="addCart('${p.name}')">افزودن به سبد</button>
-</div>`).join("")||"<p>محصولی پیدا نشد.</p>";
-}
-function addCart(name) {
-  const p = items.find(x => x.name === name);
+      <select id="category" aria-label="دسته‌بندی محصولات">
+        <option value="">همه محصولات</option>
+        <option value="آرایش صورت">آرایش صورت</option>
+        <option value="آرایش چشم">آرایش چشم</option>
+        <option value="آرایش لب">آرایش لب</option>
+        <option value="مراقبت پوست">مراقبت پوست</option>
+        <option value="مراقبت مو">مراقبت مو</option>
+        <option value="عطر و ادکلن">عطر و ادکلن</option>
+      </select>
+    </section>
 
-  if (!p) {
-    alert("این محصول پیدا نشد!");
-    return;
-  }
+    <section id="products" class="products"
+             aria-label="فهرست محصولات">
+    </section>
 
-  cart.push(p);
-  showCart();
-  alert("محصول به سبد خرید اضافه شد ❤️");
-}
+    <section class="cart" id="cart">
+      <h2>🛒 سبد خرید</h2>
 
-function showCart() {
-  const cartItems = document.getElementById("cartItems");
-  const total = document.getElementById("total");
+      <div id="cartItems" aria-live="polite">
+        <p class="empty">هنوز محصولی اضافه نکرده‌ای.</p>
+      </div>
 
-  if (!cartItems || !total) {
-    alert("بخش سبد خرید در صفحه پیدا نشد!");
-    return;
-  }
+      <p class="total">
+        مجموع: <span id="total">۰</span> تومان
+      </p>
 
-  cartItems.innerHTML = cart.length
-    ? cart.map((p, i) => `
-        ${p.name} — ${money(p.price)} تومان
-        <button onclick="removeCart(${i})">حذف</button>
-      `).join("<br><br>")
-    : "هنوز محصولی اضافه نکرده‌ای.";
+      <button class="btn" id="checkout">
+        ثبت سفارش در واتساپ
+      </button>
 
-  total.textContent = money(
-    cart.reduce((sum, p) => sum + Number(p.price || 0), 0)
-  );
-}
+      <p class="notice">
+        ثبت سفارش از طریق واتساپ انجام می‌شود؛ پرداخت آنلاین در این نسخه فعال نیست.
+      </p>
+    </section>
 
-function removeCart(i) {
-  cart.splice(i, 1);
-  showCart();
-}
-function sendOrder(){
-if(!cart.length){alert("اول محصولی به سبد خرید اضافه کن.");return}
-const details=cart.map(p=>p.name+" - "+money(p.price)+" تومان").join("%0A");
-const total=money(cart.reduce((s,p)=>s+p.price,0));
-const phone=prompt("شماره واتساپ فروشگاه را با کد کشور وارد کن؛ برای ایران با 98 شروع کن:");
-if(!phone)return;
-window.open("https://wa.me/"+phone.replace(/\D/g,"")+"?text="+encodeURIComponent("سلام، سفارش من:%0A"+decodeURIComponent(details)+"%0Aمجموع: "+total+" تومان"),"_blank");
-}
-showProducts();
+  </main>
+
+  <footer>
+    VELLAN GLOSS | فروشگاه آنلاین لوازم آرایشی
+  </footer>
+
+  <script>
+    "use strict";
+
+    // محصولات نمونه فروشگاه
+    const products = [
+      {
+        id: 1,
+        name: "رژ لب",
+        price: 180000,
+        category: "آرایش لب",
+        image: "https://placehold.co/400x400/f5dce8/63334b?text=Lipstick"
+      },
+      {
+        id: 2,
+        name: "ریمل",
+        price: 220000,
+        category: "آرایش چشم",
+        image: "https://placehold.co/400x400/f5dce8/63334b?text=Mascara"
+      },
+      {
+        id: 3,
+        name: "کرم پودر",
+        price: 350000,
+        category: "آرایش صورت",
+        image: "https://placehold.co/400x400/f5dce8/63334b?text=Foundation"
+      },
+      {
+        id: 4,
+        name: "ضد آفتاب",
+        price: 290000,
+        category: "مراقبت پوست",
+        image: "https://placehold.co/400x400/f5dce8/63334b?text=Sunscreen"
+      },
+      {
+        id: 5,
+        name: "شامپو",
+        price: 160000,
+        category: "مراقبت مو",
+        image: "https://placehold.co/400x400/f5dce8/63334b?text=Shampoo"
+      },
+      {
+        id: 6,
+        name: "عطر",
+        price: 450000,
+        category: "عطر و ادکلن",
+        image: "https://placehold.co/400x400/f5dce8/63334b?text=Perfume"
+      },
+      {
+        id: 7,
+        name: "پنکک",
+        price: 240000,
+        category: "آرایش صورت",
+        image: "https://placehold.co/400x400/f5dce8/63334b?text=Powder"
+      },
+      {
+        id: 8,
+        name: "خط چشم",
+        price: 150000,
+        category: "آرایش چشم",
+        image: "https://placehold.co/400x400/f5dce8/63334b?text=Eyeliner"
+      }
+    ];
+
+    // سبد خرید
+    let cart = [];
+
+    // نمایش قیمت با اعداد فارسی
+    function money(amount) {
+      return Number(amount).toLocaleString("fa-IR");
+    }
+
+    // ساخت امن عناصر متنی
+    function createElement(tag, className, text) {
+      const element = document.createElement(tag);
+
+      if (className) {
+        element.className = className;
+      }
+
+      if (text !== undefined) {
+        element.textContent = text;
+      }
+
+      return element;
+    }
+
+    // نمایش محصولات
+    function showProducts() {
+      const searchValue = document
+        .getElementById("search")
+        .value.trim()
+        .toLowerCase();
+
+      const categoryValue = document
+        .getElementById("category")
+        .value;
+
+      const filtered = products.filter(product => {
+        const matchesName = product.name
+          .toLowerCase()
+          .includes(searchValue);
+
+        const matchesCategory = !categoryValue ||
+          product.category === categoryValue;
+
+        return matchesName && matchesCategory;
+      });
+
+      const container = document.getElementById("products");
+      container.replaceChildren();
+
+      if (filtered.length === 0) {
+        container.appendChild(
+          createElement("p", "empty", "محصولی پیدا نشد.")
+        );
+        return;
+      }
+
+      filtered.forEach(product => {
+        const card = createElement("article", "card");
+
+        const image = createElement("img");
+        image.src = product.image;
+        image.alt = product.name;
+        image.loading = "lazy";
+
+        const title = createElement("h3", "", product.name);
+
+        const price = createElement(
+          "p",
+          "price",
+          money(product.price) + " تومان"
+        );
+
+        const button = createElement(
+          "button",
+          "btn",
+          "افزودن به سبد"
+        );
+
+        button.type = "button";
+
+        // اتصال مستقیم دکمه به محصول
+        button.addEventListener("click", function () {
+          addCart(product.id);
+        });
+
+        card.append(image, title, price, button);
+        container.appendChild(card);
+      });
+    }
+
+    // افزودن محصول به سبد خرید
+    function addCart(productId) {
+      const product = products.find(
+        item => item.id === productId
+      );
+
+      if (!product) {
+        alert("محصول پیدا نشد.");
+        return;
+      }
+
+      cart.push(product);
+      showCart();
+    }
+
+    // حذف محصول از سبد
+    function removeCart(index) {
+      if (index < 0 || index >= cart.length) {
+        return;
+      }
+
+      cart.splice(index, 1);
+      showCart();
+    }
+
+    // نمایش سبد خرید و مجموع قیمت
+    function showCart() {
+      const container = document.getElementById("cartItems");
+      const totalElement = document.getElementById("total");
+
+      container.replaceChildren();
+
+      if (cart.length === 0) {
+        container.appendChild(
+          createElement(
+            "p",
+            "empty",
+            "هنوز محصولی اضافه نکرده‌ای."
+          )
+        );
+      } else {
+        cart.forEach((product, index) => {
+          const row = createElement("div", "cart-row");
+
+          const details = createElement(
+            "span",
+            "",
+            product.name + " — " + money(product.price) + " تومان"
+          );
+
+          const removeButton = createElement(
+            "button",
+            "",
+            "حذف"
+          );
+
+          removeButton.type = "button";
+
+          removeButton.addEventListener("click", function () {
+            removeCart(index);
+          });
+
+          row.append(details, removeButton);
+          container.appendChild(row);
+        });
+      }
+
+      const total = cart.reduce(
+        (sum, product) => sum + Number(product.price),
+        0
+      );
+
+      totalElement.textContent = money(total);
+    }
+
+    // ثبت سفارش در واتساپ
+    function sendOrder() {
+      if (cart.length === 0) {
+        alert("ابتدا محصولی به سبد خرید اضافه کن.");
+        return;
+      }
+
+      const phone = prompt(
+        "شماره واتساپ فروشگاه را با کد کشور وارد کن؛ برای ایران با 98 شروع کن، بدون علامت +"
+      );
+
+      if (!phone) {
+        return;
+      }
+
+      const cleanPhone = phone.replace(/\D/g, "");
+
+      if (cleanPhone.length < 8) {
+        alert("شماره واردشده معتبر به نظر نمی‌رسد.");
+        return;
+      }
+
+      const total = cart.reduce(
+        (sum, product) => sum + Number(product.price),
+        0
+      );
+
+      const lines = cart.map(product =>
+        product.name + " — " + money(product.price) + " تومان"
+      );
+
+      const message = [
+        "سلام، می‌خواهم سفارش ثبت کنم:",
+        "",
+        ...lines,
+        "",
+        "مجموع: " + money(total) + " تومان"
+      ].join("\n");
+
+      const url = "https://wa.me/" +
+        cleanPhone +
+        "?text=" +
+        encodeURIComponent(message);
+
+      window.open(url, "_blank");
+    }
+
+    // اتصال رویدادهای جست‌وجو و سفارش
+    document.getElementById("search")
+      .addEventListener("input", showProducts);
+
+    document.getElementById("category")
+      .addEventListener("change", showProducts);
+
+    document.getElementById("checkout")
+      .addEventListener("click", sendOrder);
+
+    // اجرای اولیه
+    showProducts();
+    showCart();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 const SUPABASE_URL = "https://rzurqyvjsbmnfsourdfb.supabase.co";
